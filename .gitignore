@@ -1,2 +1,10 @@
-ros_kortex/*
-CMakeLists.txt
+*
+!.gitignore
+!README.md
+!project1/
+!project1/launch/
+!project1/launch/**
+!project1/src/
+!project1/src/**
+!project1/scripts/
+!project1/scripts/**
