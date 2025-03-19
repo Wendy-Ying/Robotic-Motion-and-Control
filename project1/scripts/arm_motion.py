@@ -408,7 +408,7 @@ class ExampleFullArmMovement:
             # success &= self.example_send_cartesian_pose()
 
             # Example of cartesian
-            success &= self.example_send_cartesian(0.5, 0.0, 0.5, 90.6, -1.0, 150, 0)
+            success &= self.example_send_cartesian(0.406, 0.253, -0.019, 90, -1.0, 150, 0)
             #*******************************************************************************
 
             #*******************************************************************************
@@ -421,14 +421,21 @@ class ExampleFullArmMovement:
             # Example of gripper command
             # Let's close the gripper at 50%
             if self.is_gripper_present:
-                success &= self.example_send_gripper_command(1)
-                rospy.sleep(2)
-                success &= self.example_send_gripper_command(0)
+                success &= self.example_send_gripper_command(0.9)
                 rospy.sleep(2)
             else:
                 rospy.logwarn("No gripper is present on the arm.")    
             #*******************************************************************************
-        
+            success &= self.example_send_cartesian(0.515, 0.212, 0.247, 90, -1.0, 150, 0)
+
+            success &= self.example_send_cartesian(0.471, 0.085, -0.021, 90, -1.0, 150, 0)
+
+            if self.is_gripper_present:
+                success &= self.example_send_gripper_command(0.2)
+                rospy.sleep(2)
+            else:
+                rospy.logwarn("No gripper is present on the arm.")    
+
             #*******************************************************************************
             # Move the robot to the Home position with an Action
             success &= self.example_home_the_robot()
