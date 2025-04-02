@@ -8,3 +8,10 @@
 !project1/src/**
 !project1/scripts/
 !project1/scripts/**
+!lab5/
+!lab5/launch/
+!lab5/launch/**
+!lab5/src/
+!lab5/src/**
+!lab5/scripts/
+!lab5/scripts/**
