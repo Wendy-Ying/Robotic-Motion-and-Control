@@ -71,6 +71,8 @@ class ExampleFullArmMovement:
             validate_waypoint_list_full_name = '/' + self.robot_name + '/base/validate_waypoint_list'
             rospy.wait_for_service(validate_waypoint_list_full_name)
             self.validate_waypoint_list = rospy.ServiceProxy(validate_waypoint_list_full_name, ValidateWaypointList)
+
+            self.success =  True
         except:
             self.is_init_success = False
         else:
@@ -371,6 +373,7 @@ class ExampleFullArmMovement:
     def ee_callback(self, msg):
         print(msg.position.x/1000, msg.position.y/1000, msg.position.z/1000, msg.orientation.x, msg.orientation.y, msg.orientation.z)
         success = self.example_send_cartesian(msg.position.x/1000, msg.position.y/1000, msg.position.z/1000, msg.orientation.x, msg.orientation.y, msg.orientation.z, 0)
+        self.success &= success
         if not success:
             rospy.logerr("Failed to send cartesian pose")
         else:
@@ -439,7 +442,8 @@ class ExampleFullArmMovement:
             # success &= self.example_send_cartesian(0.515, 0.212, 0.247, 90, -1.0, 150, 0)
 
             # success &= self.example_send_cartesian(0.471, 0.085, -0.021, 90, -1.0, 150, 0)
-
+            
+            self.success = success
             rospy.Subscriber("ee_pose", Pose, self.ee_callback)
             rospy.spin()
             # if self.is_gripper_present:
@@ -466,7 +470,7 @@ class ExampleFullArmMovement:
         # For testing purposes
         rospy.set_param("/kortex_examples_test_results/full_arm_movement_python", success)
 
-        if not success:
+        if not self.success:
             rospy.logerr("The example encountered an error.")
 
 
